@@ -1,0 +1,35 @@
+ apiVersion: networking.k8s.io/v1
+ kind: Ingress
+ metadata:
+   name: marketx-frontend-ingress
+   annotations:
+     kubernetes.io/ingress.class: alb
+     alb.ingress.kubernetes.io/scheme: internet-facing
+     alb.ingress.kubernetes.io/target-type: ip
+     alb.ingress.kubernetes.io/group.name: marketx
+     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:399600302704:certificate/c3144b99-617c-4c48-9eff-c2c64e7a6dd1
+     alb.ingress.kubernetes.io/healthcheck-path: /
+     alb.ingress.kubernetes.io/success-codes: "200-399"
+ spec:
+   rules:
+     - host: heycampus.io
+       http:
+         paths:
+           - path: /
+             pathType: Prefix
+             backend:
+               service:
+                 name: marketx-frontend
+                 port:
+                   number: 80
+     - host: www.heycampus.io
+       http:
+         paths:
+           - path: /
+             pathType: Prefix
+             backend:
+               service:
+                 name: marketx-frontend
+                 port:
+                   number: 80

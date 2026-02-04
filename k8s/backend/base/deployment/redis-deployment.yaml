@@ -1,0 +1,27 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: marketx-redis
+ spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: marketx-redis
+   template:
+     metadata:
+       labels:
+         app: marketx-redis
+     spec:
+       containers:
+         - name: redis
+           image: redis:7-alpine
+           ports:
+             - containerPort: 6379
+           args: ["redis-server", "--appendonly", "yes"]
+           resources:
+             requests:
+               cpu: 100m
+               memory: 256Mi
+             limits:
+               cpu: 500m
+               memory: 1Gi

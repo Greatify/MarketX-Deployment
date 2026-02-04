@@ -1,0 +1,11 @@
+ apiVersion: kustomize.config.k8s.io/v1beta1
+ kind: Kustomization
+ 
+ namespace: marketx
+ 
+ resources:
+   - secrets/marketx-frontend-secrets.yaml
+   - deployment/frontend-deployment.yaml
+   - services/frontend-service.yaml
+   - ingress/frontend-ingress.yaml
+   - autoscaling/frontend-hpa.yaml

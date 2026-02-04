@@ -1,0 +1,34 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: marketx-celery-beat
+ spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: marketx-celery-beat
+   template:
+     metadata:
+       labels:
+         app: marketx-celery-beat
+     spec:
+       containers:
+         - name: celery-beat
+           image: marketx-backend
+           imagePullPolicy: Always
+           envFrom:
+             - secretRef:
+                 name: marketx-backend-secrets
+           command: ["sh", "-c"]
+           args:
+             - >
+               celery -A config beat
+               --loglevel=INFO
+               --pidfile=
+           resources:
+             requests:
+               cpu: 100m
+               memory: 256Mi
+             limits:
+               cpu: 250m
+               memory: 512Mi

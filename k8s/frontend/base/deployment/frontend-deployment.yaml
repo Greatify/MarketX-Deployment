@@ -1,0 +1,46 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: marketx-frontend
+ spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: marketx-frontend
+   template:
+     metadata:
+       labels:
+         app: marketx-frontend
+     spec:
+       containers:
+         - name: nginx
+           image: marketx-frontend
+           imagePullPolicy: Always
+           ports:
+             - containerPort: 80
+           envFrom:
+             - secretRef:
+                 name: marketx-frontend-secrets
+           readinessProbe:
+             httpGet:
+               path: /
+               port: 80
+             initialDelaySeconds: 5
+             periodSeconds: 10
+             timeoutSeconds: 3
+             failureThreshold: 6
+           livenessProbe:
+             httpGet:
+               path: /
+               port: 80
+             initialDelaySeconds: 20
+             periodSeconds: 20
+             timeoutSeconds: 3
+             failureThreshold: 3
+           resources:
+             requests:
+               cpu: 100m
+               memory: 128Mi
+             limits:
+               cpu: 200m
+               memory: 256Mi

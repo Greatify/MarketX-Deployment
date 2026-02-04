@@ -1,0 +1,51 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: marketx-backend
+ spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: marketx-backend
+   template:
+     metadata:
+       labels:
+         app: marketx-backend
+     spec:
+       containers:
+         - name: django
+           image: marketx-backend
+           imagePullPolicy: Always
+           ports:
+             - containerPort: 8000
+           envFrom:
+             - secretRef:
+                 name: marketx-backend-secrets
+           command: ["sh", "-c"]
+           args:
+             - >
+               gunicorn config.wsgi:application
+               --bind 0.0.0.0:8000
+               --workers 3
+               --timeout 120
+           readinessProbe:
+             tcpSocket:
+               port: 8000
+             initialDelaySeconds: 10
+             periodSeconds: 10
+             timeoutSeconds: 3
+             failureThreshold: 6
+           livenessProbe:
+             tcpSocket:
+               port: 8000
+             initialDelaySeconds: 30
+             periodSeconds: 20
+             timeoutSeconds: 3
+             failureThreshold: 3
+           resources:
+             requests:
+               cpu: 250m
+               memory: 512Mi
+             limits:
+               cpu: 500m
+               memory: 1Gi
