@@ -143,6 +143,7 @@ jobs:
       - name: Update Kubernetes configuration
         run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
 
-      - name: Deploy frontend to Production environment
+      - name: Deploy frontend (apply + restart)
         run: |
           kubectl apply -k k8s/frontend/overlays/prod
+          kubectl -n marketx rollout restart deployment/marketx-frontend

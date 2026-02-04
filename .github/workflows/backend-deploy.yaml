@@ -145,6 +145,9 @@ jobs:
       - name: Update Kubernetes configuration
         run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
 
-      - name: Deploy backend to Production environment
+      - name: Deploy backend (apply + restart)
         run: |
           kubectl apply -k k8s/backend/overlays/prod
+          kubectl -n marketx rollout restart deployment/marketx-backend
+          kubectl -n marketx rollout restart deployment/marketx-celery-worker
+          kubectl -n marketx rollout restart deployment/marketx-celery-beat
