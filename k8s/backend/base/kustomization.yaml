@@ -4,7 +4,7 @@
  namespace: marketx
  
  resources:
-   - secrets/marketx-backend-secrets.yaml
+   - secrets-store/marketx-backend-secrets-spc.yaml
    - deployment/django-deployment.yaml
    - deployment/celery-worker-deployment.yaml
    - deployment/celery-beat-deployment.yaml

@@ -1,34 +1,44 @@
  apiVersion: apps/v1
- kind: Deployment
- metadata:
-   name: marketx-celery-worker
- spec:
-   replicas: 1
-   selector:
-     matchLabels:
-       app: marketx-celery-worker
-   template:
-     metadata:
-       labels:
-         app: marketx-celery-worker
-     spec:
-       containers:
-         - name: celery-worker
-           image: marketx-backend
-           imagePullPolicy: Always
-           envFrom:
-             - secretRef:
-                 name: marketx-backend-secrets
-           command: ["sh", "-c"]
-           args:
-             - >
-               celery -A config worker
-               --loglevel=INFO
-               --concurrency=2
-           resources:
-             requests:
-               cpu: 250m
-               memory: 512Mi
-             limits:
-               cpu: 1000m
-               memory: 2Gi
+kind: Deployment
+metadata:
+  name: marketx-celery-worker
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketx-celery-worker
+  template:
+    metadata:
+      labels:
+        app: marketx-celery-worker
+    spec:
+      containers:
+        - name: celery-worker
+          image: marketx-backend
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: marketx-backend-secrets
+              mountPath: /mnt/secrets-store
+              readOnly: true
+          command: ["sh", "-c"]
+          args:
+            - >
+              set -a && . /mnt/secrets-store/.env && set +a &&
+              celery -A config worker
+              --loglevel=INFO
+              --concurrency=2
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+      volumes:
+        - name: marketx-backend-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: marketx-backend-secrets

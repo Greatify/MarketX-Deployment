@@ -4,7 +4,7 @@
  namespace: marketx
  
  resources:
-   - secrets/marketx-frontend-secrets.yaml
+   - secrets-store/marketx-frontend-secrets-spc.yaml
    - deployment/frontend-deployment.yaml
    - services/frontend-service.yaml
    - ingress/frontend-ingress.yaml
