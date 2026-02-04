@@ -9,4 +9,4 @@
  images:
    - name: marketx-frontend
      newName: 399600302704.dkr.ecr.ap-south-1.amazonaws.com/marketx-frontend
-     newTag: latest
+     newTag: frontend-3060a32cd42df380f056d61d6273f3b3f8e21509
