@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   build-backend-prod-image:
-    runs-on: ubuntu-24.04-arm64
+    runs-on: ubuntu-24.04-arm
     environment: production
     steps:
       - name: Checkout source repository code
@@ -92,7 +92,7 @@ jobs:
           if-no-files-found: error
 
   deploy-backend-prod:
-    runs-on: ubuntu-24.04-arm64
+    runs-on: ubuntu-24.04-arm
     needs: [build-backend-prod-image]
     environment:
       name: production

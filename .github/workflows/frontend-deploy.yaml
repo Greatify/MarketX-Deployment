@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   build-frontend-prod-image:
-    runs-on: ubuntu-24.04-arm64
+    runs-on: ubuntu-24.04-arm
     environment: production
     steps:
       - name: Checkout source repository code
@@ -90,7 +90,7 @@ jobs:
           if-no-files-found: error
 
   deploy-frontend-prod:
-    runs-on: ubuntu-24.04-arm64
+    runs-on: ubuntu-24.04-arm
     needs: [build-frontend-prod-image]
     environment:
       name: production
