@@ -7,5 +7,5 @@
    - secrets-store/marketx-frontend-secrets-spc.yaml
    - deployment/frontend-deployment.yaml
    - services/frontend-service.yaml
-   - ingress/frontend-ingress.yaml
+   - ../../shared/ingress/marketx-ingress.yaml
    - autoscaling/frontend-hpa.yaml
