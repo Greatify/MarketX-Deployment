@@ -11,7 +11,6 @@ resources:
   - deployment/redis-deployment.yaml
   - services/django-service.yaml
   - services/redis-service.yaml
-  - ../../shared/ingress/marketx-ingress.yaml
   - autoscaling/django-hpa.yaml
   - autoscaling/celery-worker-hpa.yaml
   - autoscaling/redis-hpa.yaml
