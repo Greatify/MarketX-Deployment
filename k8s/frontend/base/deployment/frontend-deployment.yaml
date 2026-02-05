@@ -13,6 +13,7 @@ spec:
       labels:
         app: marketx-frontend
     spec:
+      serviceAccountName: marketx-secret-sa
       containers:
         - name: nginx
           image: marketx-frontend
@@ -22,6 +23,10 @@ spec:
           volumeMounts:
             - name: marketx-frontend-secrets
               mountPath: /mnt/secrets-store
+              readOnly: true
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
               readOnly: true
           command: ["sh", "-c"]
           args:
@@ -58,3 +63,6 @@ spec:
             readOnly: true
             volumeAttributes:
               secretProviderClass: marketx-frontend-secrets
+        - name: nginx-config
+          configMap:
+            name: marketx-frontend-nginx-config

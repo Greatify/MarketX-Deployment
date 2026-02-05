@@ -8,13 +8,13 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: marketx
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:399600302704:certificate/c3144b99-617c-4c48-9eff-c2c64e7a6dd1
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:399600302704:certificate/b1a2ebc1-bf6b-4a73-a7f9-69ad12e8c4c9
     alb.ingress.kubernetes.io/healthcheck-path: /
     alb.ingress.kubernetes.io/success-codes: "200-499"
 spec:
   ingressClassName: alb
   rules:
-    - host: marketx.heycampus.io
+    - host: marketx.klockwork.ai
       http:
         paths:
           - path: /api
@@ -31,7 +31,7 @@ spec:
                 name: marketx-frontend
                 port:
                   number: 80
-    - host: www.marketx.heycampus.io
+    - host: www.marketx.klockwork.ai
       http:
         paths:
           - path: /api

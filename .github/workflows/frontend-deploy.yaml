@@ -94,7 +94,7 @@ jobs:
     needs: [build-frontend-prod-image]
     environment:
       name: production
-      url: https://heycampus.io
+      url: https://marketx.klockwork.ai
 
     steps:
       - name: Checkout deployment repository
@@ -122,7 +122,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --local user.email "deployment@heycampus.io"
+          git config --local user.email "deployment@klockwork.ai"
           git config --local user.name "MarketX Frontend Deployment Bot"
           git add k8s/frontend/overlays/prod/kustomization.yaml
 

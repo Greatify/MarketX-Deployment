@@ -13,6 +13,7 @@ spec:
       labels:
         app: marketx-celery-beat
     spec:
+      serviceAccountName: marketx-secret-sa
       containers:
         - name: celery-beat
           image: marketx-backend

@@ -13,6 +13,7 @@ spec:
       labels:
         app: marketx-celery-worker
     spec:
+      serviceAccountName: marketx-secret-sa
       containers:
         - name: celery-worker
           image: marketx-backend
