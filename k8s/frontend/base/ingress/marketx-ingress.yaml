@@ -14,7 +14,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: heycampus.io
+    - host: marketx.heycampus.io
       http:
         paths:
           - path: /api
@@ -31,7 +31,7 @@ spec:
                 name: marketx-frontend
                 port:
                   number: 80
-    - host: www.heycampus.io
+    - host: www.marketx.heycampus.io
       http:
         paths:
           - path: /api
