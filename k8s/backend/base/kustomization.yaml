@@ -5,12 +5,16 @@ namespace: marketx
 
 resources:
   - secrets-store/marketx-backend-secrets-spc.yaml
+  - configmap/backend-proxy-nginx-config.yaml
   - deployment/django-deployment.yaml
+  - deployment/backend-proxy-deployment.yaml
   - deployment/celery-worker-deployment.yaml
   - deployment/celery-beat-deployment.yaml
   - deployment/redis-deployment.yaml
   - services/django-service.yaml
+  - services/backend-proxy-service.yaml
   - services/redis-service.yaml
+  - ingress/marketx-ingress.yaml
   - autoscaling/django-hpa.yaml
   - autoscaling/celery-worker-hpa.yaml
   - autoscaling/redis-hpa.yaml

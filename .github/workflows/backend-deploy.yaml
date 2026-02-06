@@ -148,6 +148,11 @@ jobs:
       - name: Deploy backend (apply + restart)
         run: |
           kubectl apply -k k8s/backend/overlays/prod
+          kubectl -n marketx rollout restart deployment/marketx-backend-proxy
           kubectl -n marketx rollout restart deployment/marketx-backend
           kubectl -n marketx rollout restart deployment/marketx-celery-worker
           kubectl -n marketx rollout restart deployment/marketx-celery-beat
+          kubectl -n marketx rollout status deployment/marketx-backend-proxy --timeout=300s
+          kubectl -n marketx rollout status deployment/marketx-backend --timeout=300s
+          kubectl -n marketx rollout status deployment/marketx-celery-worker --timeout=300s
+          kubectl -n marketx rollout status deployment/marketx-celery-beat --timeout=300s

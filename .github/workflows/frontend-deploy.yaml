@@ -147,3 +147,4 @@ jobs:
         run: |
           kubectl apply -k k8s/frontend/overlays/prod
           kubectl -n marketx rollout restart deployment/marketx-frontend
+          kubectl -n marketx rollout status deployment/marketx-frontend --timeout=300s
